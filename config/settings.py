@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['todolist-2-img3.onrender.com']
+ALLOWED_HOSTS = ['*']
 # -----------------------------
 # Installed apps
 # -----------------------------
