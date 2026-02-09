@@ -29,7 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['todolist-4-ke2l.onrender.com', 'localhost', '127.0.0.1']
+
+# ALLOWED_HOSTS безопасно берём из .env или fallback на '*'
+ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
+if not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["*"]
 
 # -----------------------------
 # Installed apps
@@ -138,6 +142,11 @@ USE_TZ = True
 # Static files
 # -----------------------------
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"           # Для deploy на Render
+STATICFILES_DIRS = [BASE_DIR / "static"]         # Локальная папка со статикой
 
-
+# -----------------------------
+# Media files (для загружаемых файлов)
+# -----------------------------
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"                 # Папка для загруженных файлов
